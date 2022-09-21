@@ -19,15 +19,15 @@
     <hr class="mb-2 mt-2 border-slate-500">
     <div class="text-xl">
       <button v-on:click='share' id="commentsHead"
-        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-lg hover:bg-slate-700 w-4/12">
+        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
         Share
       </button>
       <button v-on:click='getComments' id="commentsHead"
-        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-lg hover:bg-slate-700 w-4/12">
+        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
         Comments
       </button>
       <button v-on:click='viewInApp' id="commentsHead"
-        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-lg hover:bg-slate-700 w-4/12">
+        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
         View in app
       </button>
     </div>
@@ -71,7 +71,9 @@ export default {
   },
   async created() {
     try {
-      const theData = await fetch("https://api.github.com/repos/CrowdSolve/data/issues/19")
+      const theUrl = window.location.href.split("/")
+      const pageNo = theUrl[theUrl.length - 1]
+      const theData = await fetch("https://api.github.com/repos/CrowdSolve/data/issues/" + pageNo)
       this.daData = await theData.json()
 
       this.daMarkDown = marked(this.daData['body'])
