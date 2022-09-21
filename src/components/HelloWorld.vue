@@ -6,8 +6,6 @@
           <img class="rounded-full h-7 w-7 inline-block ml-2 mr-2" v-bind:src="daData['user']['avatar_url']" />
         </td>
         <td>
-          <div id="user-name" class="inline-block text-base">{{ daData['user']['login'] }}
-          </div>
           <div id="user-name" class="inline-block text-base">{{ daData['user']['login']
           }}&nbsp;&nbsp;●&nbsp;&nbsp;<span class="inline-block text-xs text-slate-500">{{ daData['created_at']
             }}</span>
