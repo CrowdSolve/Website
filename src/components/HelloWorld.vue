@@ -42,7 +42,7 @@
       <button v-on:click='share' id="commentsHead"
         class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
         <div class="material-symbols-outlined">
-          thumb_up
+          share
         </div>
         Share
       </button>
