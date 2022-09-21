@@ -25,17 +25,26 @@
     <hr class="mb-2 mt-2 border-slate-500">
     <!-- facebook like buttons for share, comments and view in app -->
     <div class="text-xl">
-      <button v-on:click='share' id="commentsHead"
+      <button v-on:click='viewInApp' id="commentsHead"
         class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
-        Share
+        <div class="material-symbols-outlined">
+          phone_android
+        </div>
+        View in app
       </button>
       <button v-on:click='getComments' id="commentsHead"
         class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
+        <div class="material-symbols-outlined">
+          chat_bubble
+        </div>
         Comments
       </button>
-      <button v-on:click='viewInApp' id="commentsHead"
+      <button v-on:click='share' id="commentsHead"
         class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
-        View in app
+        <div class="material-symbols-outlined">
+          thumb_up
+        </div>
+        Share
       </button>
     </div>
     <!-- Lower horizontal divider line -->
@@ -140,5 +149,16 @@ td {
   height: 100%;
   text-align: center;
   margin: auto;
+}
+
+button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button>div {
+  font-size: 20px;
+  margin-right: 10px;
 }
 </style>
