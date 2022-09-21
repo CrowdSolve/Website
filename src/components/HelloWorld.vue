@@ -1,5 +1,5 @@
 <template>
-  <div id="backGround" class="bg-slate-800 m-auto p-4 text-white" v-if="daData != null">
+  <div id="backGround" class="bg-slate-800 m-auto p-4 text-white rounded-lg" v-if="daData != null">
     <table id="questionHead" class="text-white text-left mb-5">
       <tr>
         <td>
