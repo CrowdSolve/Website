@@ -51,8 +51,13 @@
     <hr class="mt-2 border-slate-500">
     <!-- Start of COMMENTS section -->
     <!-- COMMENTS headline -->
-    <div v-show="isVisible" id="commentsHead" class=" text-left mt-5 text-4xl text-white mb-5">
+    <!-- when comments exist show the below tag -->
+    <div v-if="isVisible && daData['comments'] != '0'" class=" text-left mt-5 text-4xl text-white mb-5">
       Comments
+    </div>
+    <!-- when no comments exist show the below tag -->
+    <div v-if="isVisible && daData['comments'] == '0'" class="text-center text-base text-slate-400 mt-5">
+      No comments on this question yet!
     </div>
     <!-- the actual comments done with a v-for loop -->
     <div id="commentsSection" v-show="isVisible" v-for="(item, index) in daComments" class="ml-5 text-white text-left">
@@ -92,7 +97,10 @@ export default {
       daCommentsMarkDown: null,
 
       // comments toggle variable
-      isVisible: false
+      isVisible: false,
+
+      // Comments Text
+      commento: "Comments",
     }
   },
   // What to do when the app just got loaded with the created function being async
@@ -118,8 +126,13 @@ export default {
       // change the state of the comments section visibility on click
       this.isVisible = !this.isVisible
       if (this.isVisible) {
-        const theData = await fetch(this.daData['comments_url'])
-        this.daComments = await theData.json()
+        if (this.daData['comments'] != '0') {
+          this.commento = "Comments"
+          const theData = await fetch(this.daData['comments_url'])
+          this.daComments = await theData.json()
+        } else {
+          this.commento = "No comments on this post yet"
+        }
       }
     },
     // Define a function to change the comments look from markdown to actual text
