@@ -9,12 +9,15 @@
   "dependencies": {
     "autoprefixer": "^10.4.11",
     "core-js": "^3.8.3",
-    "marked": "^4.1.0",
+    "katex": "^0.16.2",
+    "markdown-it-texmath": "^1.0.0",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue3-markdown-it": "^1.0.10"
   },
   "devDependencies": {
+    "@types/markdown-it": "^12.2.3",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-service": "~5.0.0"
   },

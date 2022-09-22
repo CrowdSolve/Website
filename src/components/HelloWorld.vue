@@ -19,6 +19,8 @@
     <div id="title" class="text-left text-3xl font-bold mb-5">{{ daData['title'] }}</div>
     <!-- MARKDOWN BODY -->
     <div id="body" class="text-left" v-html="daMarkDown"></div>
+    <!-- <MarkDown class="text-left" :source="daMarkDown" /> -->
+    <!-- <math-jax :latex="daMarkDown"></math-jax> -->
     <!-- COMMENTS COUNT -->
     <div class="text-right mt-2 text-slate-400 text-sm">{{ daData['comments'] }} Comments&nbsp;&nbsp;</div>
     <!-- Upper horizontal divider line -->
@@ -81,8 +83,15 @@
 </template>
 
 <script>
-// import the marked function to enable transforming from markdown to actual html
-import { marked } from 'marked'
+// define math equations renderer that transforms markdown math equations into html
+// that gets previewed with css rules from external file linked in the index.html
+const tm = require('markdown-it-texmath');
+const md = require('markdown-it')({ html: true })
+  .use(tm, {
+    engine: require('katex'),
+    delimiters: 'dollars',
+    katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
+  });
 
 export default {
   name: 'HelloWorld',
@@ -98,9 +107,6 @@ export default {
 
       // comments toggle variable
       isVisible: false,
-
-      // Comments Text
-      commento: "Comments",
     }
   },
   // What to do when the app just got loaded with the created function being async
@@ -114,8 +120,8 @@ export default {
       this.daData = await theData.json()
 
       // transform the body of the question from markdown to actual html with the marked function
-      this.daMarkDown = marked(this.daData['body'])
-      // console.log(this.daData)
+      this.daMarkDown = this.daData['body']
+      this.daMarkDown = md.render(this.daMarkDown);
     } catch (err) {
       console.log(err)
     }
@@ -126,18 +132,13 @@ export default {
       // change the state of the comments section visibility on click
       this.isVisible = !this.isVisible
       if (this.isVisible) {
-        if (this.daData['comments'] != '0') {
-          this.commento = "Comments"
-          const theData = await fetch(this.daData['comments_url'])
-          this.daComments = await theData.json()
-        } else {
-          this.commento = "No comments on this post yet"
-        }
+        const theData = await fetch(this.daData['comments_url'])
+        this.daComments = await theData.json()
       }
     },
     // Define a function to change the comments look from markdown to actual text
     createCommentsMarkdown(id) {
-      return marked(this.daComments[id]['body'])
+      return md.render(this.daComments[id]['body'])
     },
     // Define a function to tell what the share button does
     share() {
