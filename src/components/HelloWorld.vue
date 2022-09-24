@@ -1,5 +1,5 @@
 <template>
-  <div id="backGround" class="bg-slate-800 m-auto p-4 text-white rounded-lg" v-if="daData != null">
+  <div id="backGround" class="bg-slate-800 p-4 m-auto text-white rounded-lg" v-if="daData != null">
     <!-- The user icon and name table -->
     <table id="questionHead" class="text-white text-left mb-5">
       <tr>
@@ -18,7 +18,7 @@
     <!-- TITLE -->
     <div id="title" class="text-left text-3xl font-bold mb-5">{{ daData['title'] }}</div>
     <!-- MARKDOWN BODY -->
-    <div id="body" class="text-justify text-left" v-html="daMarkDown"></div>
+    <div id="body" class="text-justify" v-html="daMarkDown"></div>
     <!-- <MarkDown class="text-left" :source="daMarkDown" /> -->
     <!-- <math-jax :latex="daMarkDown"></math-jax> -->
     <!-- COMMENTS COUNT -->
@@ -156,7 +156,7 @@ export default {
 <style scoped>
 #backGround {
   max-width: 50rem;
-  margin: 0rem min(100px, auto) 0rem min(100px, auto);
+  /* margin: 0rem min(100px, auto) 0rem min(100px, auto); */
 }
 
 td {
@@ -172,6 +172,19 @@ button {
 }
 
 @media only screen and (max-width: 690px) {
+  #backGround {
+    padding: 0.75rem;
+    width: 100vw;
+    margin: 0px;
+    max-width: 100%;
+  }
+
+  #title {
+    text-align: justify;
+    font-size: 1.3rem;
+    line-height: 1.375rem;
+  }
+
   button {
     font-size: 2.5vw;
   }

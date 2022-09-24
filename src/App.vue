@@ -22,4 +22,12 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+@media only screen and (max-width: 690px) {
+  #app {
+    width: 100vw;
+    margin-top: 0px;
+    max-width: 100%;
+  }
+}
 </style>
