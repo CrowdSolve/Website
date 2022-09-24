@@ -18,13 +18,13 @@
     <!-- TITLE -->
     <div id="title" class="text-left text-3xl font-bold mb-5">{{ daData['title'] }}</div>
     <!-- MARKDOWN BODY -->
-    <div id="body" class="text-left" v-html="daMarkDown"></div>
+    <div id="body" class="text-justify text-left" v-html="daMarkDown"></div>
     <!-- <MarkDown class="text-left" :source="daMarkDown" /> -->
     <!-- <math-jax :latex="daMarkDown"></math-jax> -->
     <!-- COMMENTS COUNT -->
     <div class="text-right mt-2 text-slate-400 text-sm">{{ daData['comments'] }} Comments&nbsp;&nbsp;</div>
     <!-- Upper horizontal divider line -->
-    <hr class="mb-2 mt-2 border-slate-500">
+    <hr class="mb-2 mt-2 hori-sep border-slate-500">
     <!-- facebook like buttons for share, comments and view in app -->
     <div class="text-xl">
       <button v-on:click='viewInApp' id="commentsHead"
@@ -50,7 +50,7 @@
       </button>
     </div>
     <!-- Lower horizontal divider line -->
-    <hr class="mt-2 border-slate-500">
+    <hr class="hori-sep mt-2 border-slate-500">
     <!-- Start of COMMENTS section -->
     <!-- COMMENTS headline -->
     <!-- when comments exist show the below tag -->
@@ -171,8 +171,22 @@ button {
   align-items: center;
 }
 
+@media only screen and (max-width: 690px) {
+  button {
+    font-size: 2.5vw;
+  }
+
+  button>div {
+    font-size: 2.5vw;
+  }
+
+  .hori-sep {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+  }
+}
+
 button>div {
-  font-size: 20px;
   margin-right: 10px;
 }
 </style>
