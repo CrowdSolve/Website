@@ -28,21 +28,21 @@
     <!-- facebook like buttons for share, comments and view in app -->
     <div class="text-xl">
       <button v-on:click='viewInApp' id="commentsHead"
-        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
+        class="inline-block text-slate-400 hover:text-white rounded-xl hover:bg-slate-700 w-4/12">
         <div class="material-symbols-outlined">
           phone_android
         </div>
         View in app
       </button>
       <button v-on:click='getComments' id="commentsHead"
-        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
+        class="inline-block text-slate-400 hover:text-white rounded-xl hover:bg-slate-700 w-4/12">
         <div class="material-symbols-outlined">
           chat_bubble
         </div>
         Comments
       </button>
       <button v-on:click='share' id="commentsHead"
-        class="inline-block text-slate-400 hover:text-white p-1 pl-5 pr-5 rounded-xl hover:bg-slate-700 w-4/12">
+        class="inline-block text-slate-400 hover:text-white rounded-xl hover:bg-slate-700 w-4/12">
         <div class="material-symbols-outlined">
           share
         </div>
@@ -93,6 +93,9 @@ const md = require('markdown-it')({ html: true })
     delimiters: 'dollars',
     katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
   })
+
+const ua = navigator.userAgent.toLowerCase()
+const isAndroid = ua.indexOf("android") > -1
 
 export default {
   name: 'HelloWorld',
@@ -154,8 +157,9 @@ export default {
     },
     // Define a function to tell what the share button does
     share() {
-      navigator.clipboard.writeText(window.location.href);
-      if (screen.width >= 690) {
+      navigator.clipboard.writeText(window.location.href)
+
+      if (!isAndroid) {
         this.$toast.show("Share link copied to clipboard", {
           type: 'default',
           position: 'bottom-right',
@@ -172,10 +176,8 @@ export default {
     // Define a function to tell what the view in app button does
     viewInApp() {
       // Check if the current device is an android device
-      var ua = navigator.userAgent.toLowerCase()
-      var isAndroid = ua.indexOf("android") > -1
       if (isAndroid) {
-        window.location = "crowdsolve.page.link"
+        window.location = "https://crowdsolve.page.link/questions/"
       } else {
         console.log("This is not an android device")
       }
@@ -218,11 +220,11 @@ button {
   }
 
   button {
-    font-size: 3vw;
+    font-size: 3.5vw;
   }
 
   button>div {
-    font-size: 3vw;
+    font-size: 3.5vw;
   }
 
   .hori-sep {
