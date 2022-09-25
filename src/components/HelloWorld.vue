@@ -27,22 +27,22 @@
     <hr class="mb-2 mt-2 hori-sep border-slate-500">
     <!-- facebook like buttons for share, comments and view in app -->
     <div class="text-xl">
-      <button v-on:click='viewInApp' id="commentsHead"
+      <button v-if="isAndroid" @click='viewInApp' id="commentsHead"
         class="inline-block text-slate-400 hover:text-white rounded-xl hover:bg-slate-700 w-4/12">
         <div class="material-symbols-outlined">
           phone_android
         </div>
         View in app
       </button>
-      <button v-on:click='getComments' id="commentsHead"
-        class="inline-block text-slate-400 hover:text-white rounded-xl hover:bg-slate-700 w-4/12">
+      <button v-on:click='getComments' id="commentsButton"
+        class="inline-block text-slate-400 hover:text-white rounded-xl hover:bg-slate-700">
         <div class="material-symbols-outlined">
           chat_bubble
         </div>
         Comments
       </button>
-      <button v-on:click='share' id="commentsHead"
-        class="inline-block text-slate-400 hover:text-white rounded-xl hover:bg-slate-700 w-4/12">
+      <button v-on:click='share' id="shareButton"
+        class="inline-block text-slate-400 hover:text-white rounded-xl hover:bg-slate-700">
         <div class="material-symbols-outlined">
           share
         </div>
@@ -80,6 +80,7 @@
       <div id="body" class="text-base text-left mt-3" v-html="createCommentsMarkdown(index)"></div>
       <hr class="mb-5 mt-5 border-slate-700" v-if="index < daComments.length - 1">
     </div>
+
   </div>
 </template>
 
@@ -97,11 +98,11 @@ const md = require('markdown-it')({ html: true })
 const ua = navigator.userAgent.toLowerCase()
 const isAndroid = ua.indexOf("android") > -1
 
+const theUrl = window.location.href.split("/")
+const pageNo = theUrl[theUrl.length - 1]
+
 export default {
   name: 'HelloWorld',
-  components: {
-    // 'vue3-snackbar': Vue3Snackbar
-  },
   data() {
     return {
       // define the variabels that will hold the data to show
@@ -114,14 +115,15 @@ export default {
 
       // comments toggle variable
       isVisible: false,
+
+      isAndroid: isAndroid,
     }
   },
   // What to do when the app just got loaded with the created function being async
   async created() {
     try {
       // Get the url of the page and get the last number in the link and extract it in a variable
-      const theUrl = window.location.href.split("/")
-      const pageNo = theUrl[theUrl.length - 1]
+
       // Fetch the data from the GITHUB API and decode its JSON into one of our variables defined above
       const theData = await fetch("https://api.github.com/repos/CrowdSolve/data/issues/" + pageNo)
       this.daData = await theData.json()
@@ -131,6 +133,17 @@ export default {
       this.daMarkDown = md.render(this.daMarkDown);
     } catch (err) {
       console.log(err)
+    }
+  },
+  updated() {
+    const daCommentsButton = document.getElementById("commentsButton")
+    const daShareButton = document.getElementById("shareButton")
+    if (!isAndroid) {
+      daCommentsButton.classList.add("w-6/12", "h-12")
+      daShareButton.classList.add("w-6/12", "h-12")
+    } else {
+      daCommentsButton.classList.add("w-4/12")
+      daShareButton.classList.add("w-4/12")
     }
   },
   methods: {
@@ -157,8 +170,12 @@ export default {
     },
     // Define a function to tell what the share button does
     share() {
-      navigator.clipboard.writeText(window.location.href)
-
+      const area = document.createElement('textarea')
+      document.body.appendChild(area)
+      area.textContent = window.location.href
+      area.select();
+      document.execCommand('copy')
+      document.body.removeChild(area)
       if (!isAndroid) {
         this.$toast.show("Share link copied to clipboard", {
           type: 'default',
@@ -177,7 +194,7 @@ export default {
     viewInApp() {
       // Check if the current device is an android device
       if (isAndroid) {
-        window.location = "https://crowdsolve.page.link/questions/"
+        window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/" + pageNo + "&apn=dev.lasheen.crowdsolve")
       } else {
         console.log("This is not an android device")
       }
