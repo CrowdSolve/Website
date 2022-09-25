@@ -54,7 +54,8 @@
     <!-- Start of COMMENTS section -->
     <!-- COMMENTS headline -->
     <!-- when comments exist show the below tag -->
-    <div v-if="isVisible && daData['comments'] != '0'" class=" text-left mt-5 text-4xl text-white mb-5">
+    <div id="commentsTitle" v-if="isVisible && daData['comments'] != '0'"
+      class=" text-left mt-5 text-4xl text-white mb-5">
       Comments
     </div>
     <!-- when no comments exist show the below tag -->
@@ -91,10 +92,13 @@ const md = require('markdown-it')({ html: true })
     engine: require('katex'),
     delimiters: 'dollars',
     katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
-  });
+  })
 
 export default {
   name: 'HelloWorld',
+  components: {
+    // 'vue3-snackbar': Vue3Snackbar
+  },
   data() {
     return {
       // define the variabels that will hold the data to show
@@ -127,6 +131,9 @@ export default {
     }
   },
   methods: {
+    recieveShow(value) {
+      this.notificationShowing = value
+    },
     // Define a function to fetch the comments from the GITHUB API and JSON decode it when the comments button is pressed
     async getComments() {
       // change the state of the comments section visibility on click
@@ -134,6 +141,11 @@ export default {
       if (this.isVisible) {
         const theData = await fetch(this.daData['comments_url'])
         this.daComments = await theData.json()
+        window.scrollBy({
+          top: 5000,
+          left: 0,
+          behavior: 'smooth'
+        })
       }
     },
     // Define a function to change the comments look from markdown to actual text
@@ -142,11 +154,30 @@ export default {
     },
     // Define a function to tell what the share button does
     share() {
-      console.log("Shared!!!")
+      navigator.clipboard.writeText(window.location.href);
+      if (screen.width >= 690) {
+        this.$toast.show("Share link copied to clipboard", {
+          type: 'default',
+          position: 'bottom-right',
+          duration: 1000
+        })
+      } else {
+        this.$toast.show("Share link copied to clipboard", {
+          type: 'default',
+          position: 'bottom',
+          duration: 1000
+        })
+      }
     },
     // Define a function to tell what the view in app button does
     viewInApp() {
-      console.log("Viewed in App!!!")
+      var ua = navigator.userAgent.toLowerCase()
+      var isAndroid = ua.indexOf("android") > -1
+      if (isAndroid) {
+        window.location = "crowdsolve.page.link"
+      } else {
+        console.log("This is not an android device")
+      }
     }
   }
 }
@@ -186,16 +217,20 @@ button {
   }
 
   button {
-    font-size: 2.5vw;
+    font-size: 3vw;
   }
 
   button>div {
-    font-size: 2.5vw;
+    font-size: 3vw;
   }
 
   .hori-sep {
     margin-top: 1vw;
     margin-bottom: 1vw;
+  }
+
+  #commentsTitle {
+    font-size: 1.5rem;
   }
 }
 
