@@ -171,6 +171,7 @@ export default {
     },
     // Define a function to tell what the view in app button does
     viewInApp() {
+      // Check if the current device is an android device
       var ua = navigator.userAgent.toLowerCase()
       var isAndroid = ua.indexOf("android") > -1
       if (isAndroid) {
