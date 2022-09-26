@@ -18,7 +18,9 @@
     <!-- TITLE -->
     <div id="title" class="text-left text-3xl font-bold mb-5">{{ daData['title'] }}</div>
     <!-- MARKDOWN BODY -->
-    <div id="body" class="text-justify" v-html="daMarkDown"></div>
+    <div class="theBody" style="overflow: auto">
+      <div id="body" class="text-justify" v-html="daMarkDown"></div>
+    </div>
     <!-- <MarkDown class="text-left" :source="daMarkDown" /> -->
     <!-- <math-jax :latex="daMarkDown"></math-jax> -->
     <!-- COMMENTS COUNT -->
@@ -77,7 +79,11 @@
           </td>
         </tr>
       </table>
-      <div id="body" class="text-base text-left mt-3" v-html="createCommentsMarkdown(index)"></div>
+      <div
+        class="theBody scrollbar scrollbar-thumb-custom scrollbar-track-custom-light overflow-y-scroll scrollbar-thin"
+        style="overflow: auto;">
+        <div id="body" class="text-base text-left mt-3" v-html="createCommentsMarkdown(index)"></div>
+      </div>
       <hr class="mb-5 mt-5 border-slate-700" v-if="index < daComments.length - 1">
     </div>
 
@@ -134,6 +140,9 @@ export default {
     } catch (err) {
       console.log(err)
     }
+
+    // Default Values for Page
+    document.title = this.daData['title']
   },
   updated() {
     const daCommentsButton = document.getElementById("commentsButton")
@@ -210,10 +219,29 @@ export default {
   /* margin: 0rem min(100px, auto) 0rem min(100px, auto); */
 }
 
+.katex * {
+  font-size: 0.1em !important;
+}
+
 td {
   height: 100%;
   text-align: center;
   margin: auto;
+}
+
+/* Track */
+.theBody::-webkit-scrollbar-track {
+  background: rgb(37, 42, 48);
+}
+
+/* Handle */
+.theBody::-webkit-scrollbar-thumb {
+  background: #464957;
+}
+
+/* Handle on hover */
+.theBody::-webkit-scrollbar-thumb:hover {
+  background: #69787c;
 }
 
 button {

@@ -27,8 +27,29 @@ export default {
 @media only screen and (max-width: 690px) {
   #app {
     width: 100vw;
-    margin-top: 0px;
+    /* margin-top: 0px; */
     max-width: 100%;
+    font-size: 3vw;
   }
+}
+
+.theBody::-webkit-scrollbar-thumb {
+  background-color: green;
+  color: green;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>
