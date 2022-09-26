@@ -1,15 +1,16 @@
 <template>
   <div id="Header" class="inline-flex content-center justify-center align-middle h-20 w-full">
-    <div class="bg-slate-600 rounded-full h-px w-full ml-10 mr-10"></div>
-    <img src="./assets/logo.png" alt="CrowdSolve logo" class="h-14 w-14">
-    <div>
-      <span class="block text-4xl font-black text-white pl-2" style="font-style: italic;">
-        <span class="text-6xl">C</span>rowd<span class="text-6xl" style="color: #D07000">S</span>olve</span>
+    <div v-if="isAndroid" class="bg-slate-600 rounded-full h-px w-full ml-7 mr-7"></div>
+    <div v-if="isAndroid == false" class="w-7"></div>
+    <img src="./assets/logo.png" alt="CrowdSolve logo" class="h-9 w-9">
+    <!-- <div>
+      <span class="block text-xl text-white pl-2" style="font-style: italic;">
+        <span class="text-2xl">C</span>rowd<span class="text-3xl" style="color: #D07000">S</span>olve</span>
       <span id="HeaderBot" class="text-xs text-slate-600">The BEST platform for college students</span>
-    </div>
-    <div class="bg-slate-600 rounded-full h-px w-full ml-10 mr-10"></div>
+  </div> -->
+    <div class="bg-slate-600 rounded-full h-px w-full ml-7 mr-7"></div>
   </div>
-  <HelloWorld />
+  <HelloWorld @Android='checkDevice' />
 </template>
 
 <script>
@@ -17,8 +18,18 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      isAndroid: null,
+    }
+  },
   components: {
     HelloWorld
+  },
+  methods: {
+    checkDevice(value) {
+      this.isAndroid = value
+    }
   }
 }
 </script>

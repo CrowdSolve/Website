@@ -127,6 +127,7 @@ export default {
   },
   // What to do when the app just got loaded with the created function being async
   async created() {
+    this.$emit("Android", this.isAndroid)
     try {
       // Get the url of the page and get the last number in the link and extract it in a variable
 
@@ -216,6 +217,7 @@ export default {
 <style scoped>
 #backGround {
   max-width: 50rem;
+  border-radius: 0.5rem;
   /* margin: 0rem min(100px, auto) 0rem min(100px, auto); */
 }
 
@@ -252,6 +254,7 @@ button {
     width: 100vw;
     margin: 0px;
     max-width: 100%;
+    border-radius: 0rem;
   }
 
   #title {
