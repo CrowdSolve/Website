@@ -2,7 +2,7 @@
   <div id="Header" class="inline-flex content-center justify-center align-middle h-20 w-full">
     <div v-if="isAndroid" class="bg-slate-600 rounded-full h-px w-full ml-7 mr-7"></div>
     <div v-if="isAndroid == false" class="w-7"></div>
-    <img src="./assets/logo.png" alt="CrowdSolve logo" class="h-9 w-9">
+    <img src="./assets/website-header-white.png" alt="CrowdSolve logo" class="h-9">
     <!-- <div>
       <span class="block text-xl text-white pl-2" style="font-style: italic;">
         <span class="text-2xl">C</span>rowd<span class="text-3xl" style="color: #D07000">S</span>olve</span>
@@ -60,6 +60,16 @@ export default {
     width: 100vw;
     max-width: 100%;
     font-size: 3vw;
+    margin-top: 60px;
+  }
+
+  #Header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 60px;
+    background-color: #263646;
+    z-index: 5;
   }
 }
 </style>
