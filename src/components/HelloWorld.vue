@@ -219,10 +219,6 @@ export default {
   /* margin: 0rem min(100px, auto) 0rem min(100px, auto); */
 }
 
-.katex * {
-  font-size: 0.1em !important;
-}
-
 td {
   height: 100%;
   text-align: center;
