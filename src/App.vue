@@ -3,35 +3,28 @@
     <div v-if="isAndroid" class="bg-slate-600 rounded-full h-px w-full ml-7 mr-7"></div>
     <div v-if="isAndroid == false" class="w-7"></div>
     <img src="./assets/website-header-white.png" alt="CrowdSolve logo" class="h-9">
-    <!-- <div>
-      <span class="block text-xl text-white pl-2" style="font-style: italic;">
-        <span class="text-2xl">C</span>rowd<span class="text-3xl" style="color: #D07000">S</span>olve</span>
-      <span id="HeaderBot" class="text-xs text-slate-600">The BEST platform for college students</span>
-  </div> -->
     <div class="bg-slate-600 rounded-full h-px w-full ml-7 mr-7"></div>
   </div>
-  <HelloWorld @Android='checkDevice' />
+  <!-- <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/questions">About</router-link>
+  </nav> -->
+  <router-view :Android="isAndroid" :md="md" />
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+const ua = navigator.userAgent.toLowerCase()
+const isAndroid = ua.indexOf("android") > -1
 
-export default {
-  name: 'App',
-  data() {
-    return {
-      isAndroid: null,
-    }
-  },
-  components: {
-    HelloWorld
-  },
-  methods: {
-    checkDevice(value) {
-      this.isAndroid = value
-    }
-  }
-}
+// define math equations renderer that transforms markdown math equations into html
+// that gets previewed with css rules from external file linked in the index.html
+const tm = require('markdown-it-texmath');
+const md = require('markdown-it')({ html: true })
+  .use(tm, {
+    engine: require('katex'),
+    delimiters: 'dollars',
+    katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
+  })
 </script>
 
 <style>
@@ -42,7 +35,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   /* margin-top: 60px; */
-  margin-bottom: 100px;
+
 }
 
 #Header {
@@ -71,5 +64,18 @@ export default {
     background-color: #263646;
     z-index: 5;
   }
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

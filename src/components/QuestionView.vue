@@ -8,7 +8,9 @@
         </td>
         <td>
           <div id="user-name" class="inline-block text-base">{{ daData['user']['login']
-          }}&nbsp;&nbsp;●&nbsp;&nbsp;<span class="inline-block text-xs text-slate-500">{{ daData['created_at']
+          }}&nbsp;&nbsp;●&nbsp;&nbsp;<span class="inline-block text-xs text-slate-500">{{
+            // Date(daData['created_at'])
+            daDate
             }}</span>
           </div>
         </td>
@@ -91,42 +93,31 @@
 </template>
 
 <script>
-// define math equations renderer that transforms markdown math equations into html
-// that gets previewed with css rules from external file linked in the index.html
-const tm = require('markdown-it-texmath');
-const md = require('markdown-it')({ html: true })
-  .use(tm, {
-    engine: require('katex'),
-    delimiters: 'dollars',
-    katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
-  })
-
-const ua = navigator.userAgent.toLowerCase()
-const isAndroid = ua.indexOf("android") > -1
-
-const theUrl = window.location.href.split("/")
-const pageNo = theUrl[theUrl.length - 1]
+var pageNo = 0
 
 export default {
-  name: 'HelloWorld',
+  name: 'QuestionView',
+  props: ['isAndroid', 'md'],
   data() {
     return {
       // define the variabels that will hold the data to show
       // BODY data
       daData: null,
       daMarkDown: null,
+      daDate: null,
       // COMMENTS data
       daComments: null,
       daCommentsMarkDown: null,
 
       // comments toggle variable
       isVisible: false,
-
-      isAndroid: isAndroid,
     }
   },
   // What to do when the app just got loaded with the created function being async
   async created() {
+    const theUrl = window.location.href.split("/")
+    pageNo = theUrl[theUrl.length - 1]
+    console.log()
     this.$emit("Android", this.isAndroid)
     try {
       // Get the url of the page and get the last number in the link and extract it in a variable
@@ -135,9 +126,11 @@ export default {
       const theData = await fetch("https://api.github.com/repos/CrowdSolve/data/issues/" + pageNo)
       this.daData = await theData.json()
 
+      this.daDate = new Date(this.daData['created_at']).toDateString()
+
       // transform the body of the question from markdown to actual html with the marked function
       this.daMarkDown = this.daData['body']
-      this.daMarkDown = md.render(this.daMarkDown);
+      this.daMarkDown = this.md.render(this.daMarkDown);
     } catch (err) {
       console.log(err)
     }
@@ -148,7 +141,7 @@ export default {
   updated() {
     const daCommentsButton = document.getElementById("commentsButton")
     const daShareButton = document.getElementById("shareButton")
-    if (!isAndroid) {
+    if (!this.isAndroid) {
       daCommentsButton.classList.add("w-6/12", "h-12")
       daShareButton.classList.add("w-6/12", "h-12")
     } else {
@@ -176,7 +169,7 @@ export default {
     },
     // Define a function to change the comments look from markdown to actual text
     createCommentsMarkdown(id) {
-      return md.render(this.daComments[id]['body'])
+      return this.md.render(this.daComments[id]['body'])
     },
     // Define a function to tell what the share button does
     share() {
@@ -186,7 +179,7 @@ export default {
       area.select();
       document.execCommand('copy')
       document.body.removeChild(area)
-      if (!isAndroid) {
+      if (!this.isAndroid) {
         this.$toast.show("Share link copied to clipboard", {
           type: 'default',
           position: 'bottom-right',
@@ -203,7 +196,7 @@ export default {
     // Define a function to tell what the view in app button does
     viewInApp() {
       // Check if the current device is an android device
-      if (isAndroid) {
+      if (this.isAndroid) {
         window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/" + pageNo + "&apn=dev.lasheen.crowdsolve")
       } else {
         console.log("This is not an android device")
