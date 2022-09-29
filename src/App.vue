@@ -2,7 +2,7 @@
   <div id="Header" class="inline-flex content-center justify-center align-middle h-20 w-full">
     <div v-if="isAndroid" class="bg-slate-600 rounded-full h-px w-full ml-7 mr-7"></div>
     <div v-if="isAndroid == false" class="w-7"></div>
-    <img src="./assets/website-header-white.png" alt="CrowdSolve logo" class="h-9">
+    <img @click="$router.push('/')" src="./assets/website-header-white.png" alt="CrowdSolve logo" class="h-9">
     <div class="bg-slate-600 rounded-full h-px w-full ml-7 mr-7"></div>
   </div>
   <!-- <nav>
@@ -34,8 +34,6 @@ const md = require('markdown-it')({ html: true })
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
-
 }
 
 #Header {

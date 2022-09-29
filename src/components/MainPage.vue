@@ -60,6 +60,7 @@ export default {
                 rest = item['body'].replace(matches_array, "")
                 this.daImages[this.daData.indexOf(item)] = matches_array.toString().replace("![](", "").replace(")", "")
             } else {
+                rest = item['body']
                 this.daImages[this.daData.indexOf(item)] = null
             }
             const daVar = this.md.render(rest)
@@ -81,7 +82,7 @@ export default {
     text-overflow: clip;
     white-space: nowrap;
     overflow: hidden;
-    max-height: 5vw;
+    max-height: 5rem;
     text-align: left;
     background: -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
 }
