@@ -195,12 +195,7 @@ export default {
     },
     // Define a function to tell what the view in app button does
     viewInApp() {
-      // Check if the current device is an android device
-      if (this.isAndroid) {
-        window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/" + pageNo + "&apn=dev.lasheen.crowdsolve")
-      } else {
-        console.log("This is not an android device")
-      }
+      window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/&apn=dev.lasheen.crowdsolve")
     }
   }
 }

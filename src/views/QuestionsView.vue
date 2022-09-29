@@ -7,11 +7,6 @@ import QuestionView from '../components/QuestionView.vue'
 
 export default {
   name: 'QuestionsView',
-  data() {
-    return {
-      // isAndroid: null,
-    }
-  },
   props: ['Android', 'md'],
   components: {
     QuestionView
@@ -31,7 +26,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
   margin-bottom: 100px;
 }
 

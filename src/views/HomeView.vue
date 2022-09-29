@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <MainPage :md='md' />
+    <MainPage :isAndroid='Android' :md='md' />
   </div>
 </template>
 
@@ -13,6 +13,6 @@ export default {
   components: {
     MainPage
   },
-  props: ['md'],
+  props: ['Android', 'md'],
 }
 </script>
