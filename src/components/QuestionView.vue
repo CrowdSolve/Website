@@ -195,7 +195,7 @@ export default {
     },
     // Define a function to tell what the view in app button does
     viewInApp() {
-      window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/&apn=dev.lasheen.crowdsolve")
+      window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/" + pageNo + "&apn=dev.lasheen.crowdsolve")
     }
   }
 }

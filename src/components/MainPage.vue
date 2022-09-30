@@ -41,7 +41,7 @@
                             <span class="reaction">{{ this.daData[index]['reactions']['heart'] }}</span>
                         </td>
                         <td @click="ComingSoon('Reactions')" class="cursor-pointer float-right"
-                            style="margin-left: 2vw;">
+                            style="margin-left: 1vw;">
                             <i class="reaction material-symbols-outlined">
                                 chat
                             </i>
@@ -103,7 +103,7 @@ export default {
             })
         },
         toPlayStore() {
-            qwindow.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/" + pageNo + "&apn=dev.lasheen.crowdsolve")
+            window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/" + pageNo + "&apn=dev.lasheen.crowdsolve")
         }
     }
 }
