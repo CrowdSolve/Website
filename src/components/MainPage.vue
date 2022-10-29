@@ -1,24 +1,28 @@
 <template>
     <div id="backGround" class="py-2 m-auto text-white" v-if="daData != null">
         <h1 id="header" class="font-bold text-left my-9">Today's top questions</h1>
-        <!-- <hr class="my-7 border-slate-500" /> -->
-        <div v-for="(question, index) in daData" class="m-3 bg-slate-800 rounded-2xl">
+        <!-- QUESTION PREVIEW -->
+        <div v-for="(question, index) in daData" :key="question" class="m-3 bg-slate-800 rounded-2xl">
+            <!-- Question clickable image -->
             <div @click="$router.push('/questions/'+question['number'])" v-if="daImages[index] != null"
                 style="width: 100%; height: 45vw; max-height: 20rem; background-size: cover">
                 <img class="h-full min-w-full object-cover rounded-t-2xl" :src="daImages[index]" />
             </div>
+            <!-- Question content -->
             <div class="p-3">
                 <div @click="$router.push('/questions/'+question['number'])">
-                    <div id="title" style="text-overflow: ellipsis;
-                        white-space: nowrap;
+                    <!-- Question title -->
+                    <div id="title" style="text-overflow: ellipsis; white-space: nowrap;
                         overflow: hidden;
                         text-align: left;" class="font-bold text-3xl mt-2">
                         {{ daData[index]['title'] }}
                     </div>
                     <br>
+                    <!-- Question content -->
                     <div id="content" v-html="daMarkdown[index]"></div>
                     <div class="text-left">...</div>
                 </div>
+                <!-- Question footer banner -->
                 <table id="questionHead" class="flex text-white text-left mt-5">
                     <tr class="flex w-full">
                         <td @click="ComingSoon('Users')" class="cursor-pointer float-left m-auto mx-0">
@@ -53,6 +57,7 @@
                 </table>
             </div>
         </div>
+        <!-- Android check -->
         <div v-if="isAndroid"
             @click='window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/apn=dev.lasheen.crowdsolve" )'
             id="ad"><i class="noselect material-symbols-outlined">
@@ -74,9 +79,11 @@ export default {
         }
     },
     async created() {
+        // Fetch all questions data 
         const theData = await fetch("https://api.github.com/repos/CrowdSolve/data/issues")
         this.daData = await theData.json()
 
+        // Split fetched questions data and render it (convert it to html)
         for (const item of this.daData) {
             const regexp = /(\!\[\]\(.*\))/g
             var matches_array = item['body'].match(regexp)
@@ -95,6 +102,7 @@ export default {
         }
     },
     methods: {
+        // Show coming soon message
         ComingSoon(message) {
             this.$toast.show(message + " coming soon, Check CrowdSolve on Play Store to access them", {
                 type: 'default',
@@ -102,6 +110,7 @@ export default {
                 duration: 1000
             })
         },
+        // Redirect to the play store
         toPlayStore() {
             window.open("https://csolve.page.link/?link=https://crowdsolve.lasheen.dev/questions/" + pageNo + "&apn=dev.lasheen.crowdsolve")
         }

@@ -23,8 +23,6 @@
     <div class="theBody" style="overflow: auto">
       <div id="body" class="text-justify" v-html="daMarkDown"></div>
     </div>
-    <!-- <MarkDown class="text-left" :source="daMarkDown" /> -->
-    <!-- <math-jax :latex="daMarkDown"></math-jax> -->
     <!-- COMMENTS COUNT -->
     <div class="text-right mt-2 text-slate-400 text-sm">{{ daData['comments'] }} Comments&nbsp;&nbsp;</div>
     <!-- Upper horizontal divider line -->
@@ -67,7 +65,7 @@
       No comments on this question yet!
     </div>
     <!-- the actual comments done with a v-for loop -->
-    <div id="commentsSection" v-show="isVisible" v-for="(item, index) in daComments" class="ml-5 text-white text-left">
+    <div id="commentsSection" v-show="isVisible" v-for="(item, index) in daComments" :key="item" class="ml-5 text-white text-left">
       <table id="questionHead" class="text-white text-left">
         <tr class="m-auto">
           <td>
@@ -82,7 +80,7 @@
         </tr>
       </table>
       <div
-        class="theBody scrollbar scrollbar-thumb-custom scrollbar-track-custom-light overflow-y-scroll scrollbar-thin"
+        class="theBody scrollbar-thumb-custom scrollbar-track-custom-light overflow-y-scroll scrollbar-thin"
         style="overflow: auto;">
         <div id="body" class="text-base text-left mt-3" v-html="createCommentsMarkdown(index)"></div>
       </div>
