@@ -19,7 +19,7 @@
                     </div>
                     <br>
                     <!-- Question content -->
-                    <div id="content" v-html="daMarkdown[index]"></div>
+                    <div class="bg-gray-100 bg-opacity-0" id="content" v-html="daMarkdown[index]"></div>
                     <div class="text-left">...</div>
                 </div>
                 <!-- Question footer banner -->
