@@ -19,7 +19,7 @@
                     </div>
                     <br>
                     <!-- Question content -->
-                    <div class="bg-gray-100 bg-opacity-0" id="content" v-html="daMarkdown[index]"></div>
+                    <div id="content" v-html="daMarkdown[index]"></div>
                     <div class="text-left">...</div>
                 </div>
                 <!-- Question footer banner -->
@@ -142,7 +142,7 @@ export default {
     overflow: hidden;
     max-height: 5rem;
     text-align: left;
-    background: -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    /* background: -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)); */
 }
 
 #ad {
